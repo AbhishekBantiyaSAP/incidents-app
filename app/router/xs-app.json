@@ -1,0 +1,11 @@
+{
+  "routes": [
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "destination": "srv-api-incidents",
+      "csrfProtection": true
+    }
+  ],
+  "welcomeFile": "/cp.portal"
+}

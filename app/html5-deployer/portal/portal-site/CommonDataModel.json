@@ -1,0 +1,93 @@
+{
+  "_version": "3.0.0",
+  "identification": {
+    "title": "incidents",
+    "id": "incidents-flp",
+    "entityType": "bundle"
+  },
+  "payload": {
+    "catalogs": [
+      {
+        "_version": "3.0.0",
+        "identification": {
+          "id": "incidents-catalog",
+          "title": "{{title}}",
+          "entityType": "catalog",
+          "i18n": "i18n/catalog.properties"
+        },
+        "payload": {
+          "viz": [
+            {
+              "appId": "ns.incidents",
+              "vizId": "Incidents-display"
+            }
+          ]
+        }
+      }
+    ],
+    "groups": [
+      {
+        "_version": "3.0.0",
+        "identification": {
+          "id": "incidents-group",
+          "title": "{{title}}",
+          "entityType": "group",
+          "i18n": "i18n/group.properties"
+        },
+        "payload": {
+          "viz": [
+            {
+              "id": "incidentsincidents-001",
+              "appId": "ns.incidents",
+              "vizId": "Incidents-display"
+            }
+          ]
+        }
+      }
+    ],
+    "sites": [
+      {
+        "_version": "3.0.0",
+        "identification": {
+          "id": "incidents-site",
+          "entityType": "site",
+          "title": "incidents",
+          "description": "A simple CAP project."
+        },
+        "payload": {
+          "config": {
+            "ushellConfig": {
+              "renderers": {
+                "fiori2": {
+                  "componentData": {
+                    "config": {
+                      "applications": {
+                        "Shell-home": {}
+                      },
+                      "enableSearch": true,
+                      "enablePersonalization": true,
+                      "enableSetTheme": true,
+                      "enableSetLanguage": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "groupsOrder": ["incidents-group"],
+          "sap.cloud.portal": {
+            "config": {
+              "theme.id": "sap_horizon",
+              "theme.active": [
+                "sap_horizon",
+                "sap_horizon_dark",
+                "sap_horizon_hcw",
+                "sap_horizon_hcb"
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

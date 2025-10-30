@@ -1,0 +1,41 @@
+_schema-version: '1.0'
+repository: docker.io/abhishekbantiya
+tag: v1
+before-all:
+  - npx cds build --production
+  - mkdir -p app/html5-deployer/resources
+  - npm i --prefix app/incidents
+  - npm run build --prefix app/incidents
+  # zip filename should match the archiveName specified in ui5-deploy.yaml
+  - cp -f app/incidents/dist/incidents.zip app/html5-deployer/resources/incidents.zip
+modules:
+  - name: incidents-srv-gha
+    build-parameters:
+      buildpack:
+        type: nodejs
+        builder: builder-jammy-base
+        path: gen/srv
+        env:
+          BP_NODE_RUN_SCRIPTS: ""
+  - name: incidents-hana-deployer-gha
+    build-parameters:
+      buildpack:
+        type: nodejs
+        builder: builder-jammy-base
+        path: gen/db
+        env:
+          BP_NODE_RUN_SCRIPTS: ""
+  - name: incidents-approuter
+    build-parameters:
+      buildpack:
+        type: nodejs
+        builder: builder-jammy-base
+        path: app/router
+        env:
+          BP_NODE_RUN_SCRIPTS: ""
+  - name: incidents-html5-deployer-gha
+    build-parameters:
+      buildpack:
+        type: deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0
+        builder: builder-jammy-base
+        path: app/html5-deployer

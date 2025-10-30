@@ -1,0 +1,130 @@
+# yaml-language-server: $schema=./values.schema.json
+
+global:
+  domain: c-50942a7.stage.kyma.ondemand.com
+  imagePullSecret:
+    name: docker.io
+  image:
+    registry: abhishekbantiya
+    tag: v1
+srv:
+  bindings:
+    auth:
+      serviceInstanceName: xsuaa
+    db:
+      serviceInstanceName: hana
+    destination:
+      serviceInstanceName: destination
+  image:
+    repository: incidents-srv-gha
+  resources:
+    limits:
+      ephemeral-storage: 1G
+      memory: 500M
+    requests:
+      ephemeral-storage: 1G
+      cpu: 500m
+      memory: 500M
+  health:
+    liveness:
+      path: /health
+    readiness:
+      path: /health
+  networkSecurity:
+    allowNamespaceInternal: true
+approuter:
+  bindings:
+    auth:
+      serviceInstanceName: xsuaa
+    html5-apps-repo-runtime:
+      serviceInstanceName: html5-apps-repo-runtime
+    portal:
+      serviceInstanceName: portal
+  image:
+    repository: incidents-approuter
+  resources:
+    limits:
+      ephemeral-storage: 1G
+      memory: 500M
+    requests:
+      ephemeral-storage: 1G
+      cpu: 500m
+      memory: 500M
+  health:
+    liveness:
+      path: /
+    readiness:
+      path: /
+  envFrom:
+    - configMapRef:
+        name: "{{ .Release.Name }}-approuter-configmap"
+xsuaa:
+  serviceOfferingName: xsuaa
+  servicePlanName: application
+  parameters:
+    tenant-mode: dedicated
+    oauth2-configuration:
+      redirect-uris:
+        - https://*.{{ tpl .Values.global.domain . }}/**
+    xsappname: incidents-gha-{{ .Release.Namespace }}
+hana-deployer:
+  image:
+    repository: incidents-hana-deployer-gha
+  bindings:
+    hana:
+      serviceInstanceName: hana
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 1G
+    requests:
+      cpu: 1000m
+      memory: 1G
+hana:
+  serviceOfferingName: hana
+  servicePlanName: hdi-shared
+backendDestinations:
+  srv-api-incidents:
+    service: srv
+destination:
+  serviceOfferingName: destination
+  servicePlanName: lite
+  parameters:
+    version: 1.0.0
+    HTML5Runtime_enabled: true
+html5-apps-repo-host:
+  serviceOfferingName: html5-apps-repo
+  servicePlanName: app-host
+html5-apps-deployer:
+  image:
+    repository: incidents-html5-deployer-gha
+  bindings:
+    content-agent-service:
+      serviceInstanceName: content-agent-service
+    portal:
+      serviceInstanceName: portal
+    xsuaa:
+      serviceInstanceName: xsuaa
+    destination:
+      serviceInstanceName: destination
+    html5-apps-repo:
+      serviceInstanceName: html5-apps-repo-host
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 1G
+    requests:
+      cpu: 1000m
+      memory: 1G
+  envFrom:
+    - configMapRef:
+        name: "{{ .Release.Name }}-html5-apps-deployer-configmap"
+html5-apps-repo-runtime:
+  serviceOfferingName: html5-apps-repo
+  servicePlanName: app-runtime
+portal:
+  serviceOfferingName: portal
+  servicePlanName: standard
+content-agent-service:
+  serviceOfferingName: content-agent
+  servicePlanName: application

@@ -2,7 +2,9 @@
   "name": "@capire/incidents",
   "version": "1.0.0",
   "dependencies": {
+    "@cap-js/hana": "^2",
     "@sap/cds": ">=8",
+    "@sap/xssec": "^4",
     "express": "^4"
   },
   "devDependencies": {
@@ -21,5 +23,16 @@
   "sapux": [
     "app/incidents"
   ],
-  "private": true
+  "private": true,
+  "cds": {
+    "requires": {
+      "[production]": {
+        "auth": "xsuaa",
+        "db": "hana"
+      },
+      "destinations": true,
+      "html5-repo": true,
+      "portal": true
+    }
+  }
 }
