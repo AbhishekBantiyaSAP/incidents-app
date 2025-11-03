@@ -28,6 +28,7 @@ pipeline {
             steps {
                 sh '''
                 echo "=== Running CDS build ==="
+                npm install -g @sap/cds-dk ctz
                 ${CDS_CMD} build --production
 
                 mkdir -p app/html5-deployer/resources
