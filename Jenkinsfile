@@ -43,8 +43,7 @@ pipeline {
         stage('Build & Push Containers') {
             steps {
                     script {
-                        writeFile file: 'docker-config.json', text: "${DOCKER_CONFIG_JSON}"
-
+                        
                         echo "=== Building container images using Piper cnbBuild ==="
 
                         // ---- SRV ----
