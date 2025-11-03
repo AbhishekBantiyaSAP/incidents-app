@@ -42,7 +42,6 @@ pipeline {
 
         stage('Build & Push Containers') {
             steps {
-                {
                     script {
                         writeFile file: 'docker-config.json', text: "${DOCKER_CONFIG_JSON}"
 
@@ -86,7 +85,6 @@ pipeline {
                             dockerConfigJsonCredentialsId: 'docker-config-json'
                         )
                     }
-                }
             }
         }
 
