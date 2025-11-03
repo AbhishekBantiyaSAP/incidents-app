@@ -59,7 +59,7 @@ pipeline {
                             containerRegistryUrl: "${REGISTRY}",
                             containerImageName: "${APP_NAME}-srv",
                             containerImageTag: "${IMAGE_TAG}",
-                            dockerConfigJson: 'docker-config.json'
+                            dockerConfigJsonCredentialsId: 'docker-config-json'
                         )
 
                         // ---- HANA Deployer ----
@@ -71,7 +71,7 @@ pipeline {
                             containerRegistryUrl: "${REGISTRY}",
                             containerImageName: "${APP_NAME}-hana-deployer",
                             containerImageTag: "${IMAGE_TAG}",
-                            dockerConfigJson: 'docker-config.json'
+                            dockerConfigJsonCredentialsId: 'docker-config-json'
                         )
 
                         // ---- HTML5 Deployer ----
@@ -85,7 +85,7 @@ pipeline {
                             containerRegistryUrl: "${REGISTRY}",
                             containerImageName: "${APP_NAME}-html5-deployer",
                             containerImageTag: "${IMAGE_TAG}",
-                            dockerConfigJson: 'docker-config.json'
+                            dockerConfigJsonCredentialsId: 'docker-config-json'
                         )
                     }
                 }
