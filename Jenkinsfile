@@ -3,7 +3,7 @@
 pipeline {
     agent {
         docker {
-            image 'ppiper/node-browsers:v10'   // ✅ SAP-maintained image with Node, Helm, kubectl, pack, etc.
+            image 'ppiper/node-browsers:latest'   // ✅ SAP-maintained image with Node, Helm, kubectl, pack, etc.
             reuseNode true
         }
     }
