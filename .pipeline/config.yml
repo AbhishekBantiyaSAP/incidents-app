@@ -20,7 +20,7 @@ steps:
   cnbBuild:
     # let it take default image
     containerImageTag: latest
-    containerRegistryUrl: ${env.DOCKER_REGISTRY}
+    containerRegistryUrl: {{ .Env.DOCKER_REGISTRY }}
     multipleImages:
       - containerImageName: incidents-jenkins-srv
         path: gen/srv
