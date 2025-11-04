@@ -40,6 +40,62 @@ pipeline {
             }
         }
 
+                stage('TRIAL: Buildah cnbBuild (srv only)') {
+            when {
+                expression { false } // ← SET TO `true` TO RUN
+            }
+            steps {
+                withCredentials([file(credentialsId: 'docker-config-json', variable: 'DOCKER_CONFIG')]) {
+                    sh '''
+                    set +x  # Hide sensitive output
+                    echo "=== Installing Buildah in agent ==="
+                    if ! command -v buildah >/dev/null; then
+                        echo "Installing buildah..."
+                        sudo apt-get update
+                        sudo apt-get install -y buildah fuse-overlayfs slirp4netns
+                        sudo rm -rf /var/lib/apt/lists/*
+                    else
+                        echo "buildah already installed"
+                    fi
+
+                    # Setup auth for buildah
+                    mkdir -p ~/.docker
+                    cp "$DOCKER_CONFIG" ~/.docker/config.json
+                    echo "config.json copied for buildah"
+
+                    # Verify buildah can see auth
+                    echo "Testing buildah login..."
+                    buildah login --get-login ${REGISTRY} && echo "Logged in to ${REGISTRY}" || echo "No prior login"
+
+                    echo "=== Running cnbBuild with Buildah (srv only) ==="
+                    '''
+                    
+                    script {
+                        cnbBuild(
+                            script: this,
+                            path: 'gen/srv',
+                            buildpacks: ['paketobuildpacks/nodejs:latest'],
+                            containerRegistryUrl: "${REGISTRY}",
+                            containerImageName: "${APP_NAME}-srv-buildah",
+                            containerImageTag: "${IMAGE_TAG}",
+                            dockerConfigJsonCredentialsId: 'docker-config-json',
+                            buildEnvVars: [
+                                PACK_BUILDER_DRIVER: 'buildah'
+                            ]
+                        )
+                    }
+                }
+            }
+            post {
+                success {
+                    echo "Buildah cnbBuild succeeded! Image: ${REGISTRY}/${APP_NAME}-srv-buildah:${IMAGE_TAG}"
+                }
+                failure {
+                    echo "Buildah failed — check logs above. Docker path still works."
+                }
+            }
+        }
+
         stage('Build & Push Containers') {
             steps {
                     script {
