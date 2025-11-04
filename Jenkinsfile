@@ -42,7 +42,7 @@ pipeline {
 
                 stage('TRIAL: Buildah cnbBuild (srv only)') {
             when {
-                expression { false } // ← SET TO `true` TO RUN
+                expression { true } // ← SET TO `true` TO RUN
             }
             steps {
                 withCredentials([file(credentialsId: 'docker-config-json', variable: 'DOCKER_CONFIG')]) {
