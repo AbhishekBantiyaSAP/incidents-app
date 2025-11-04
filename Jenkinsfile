@@ -50,7 +50,6 @@ pipeline {
                         cnbBuild(
                             script: this,
                             path: 'gen/srv',
-                            dockerImage: 'paketobuildpacks/builder-jammy-full',
                             buildpacks: ['paketobuildpacks/nodejs'],
                             containerRegistryUrl: "${REGISTRY}",
                             containerImageName: "${APP_NAME}-srv",
@@ -62,7 +61,6 @@ pipeline {
                         cnbBuild(
                             script: this,
                             path: 'gen/db',
-                            dockerImage: 'paketobuildpacks/builder-jammy-full',
                             buildpacks: ['paketobuildpacks/nodejs'],
                             containerRegistryUrl: "${REGISTRY}",
                             containerImageName: "${APP_NAME}-hana-deployer",
@@ -74,7 +72,6 @@ pipeline {
                         cnbBuild(
                             script: this,
                             path: 'app/html5-deployer',
-                            dockerImage: 'paketobuildpacks/builder-jammy-full',
                             buildpacks: [
                                 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
                             ],
