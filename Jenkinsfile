@@ -1,2 +1,15 @@
 @Library('piper-lib-os') _
-piperPipeline script: this
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Run Piper') {
+            steps {
+                script {
+                    piperPipeline script: this
+                }
+            }
+        }
+    }
+}
