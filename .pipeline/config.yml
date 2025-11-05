@@ -1,6 +1,8 @@
 general:
   buildTool: npm
   productiveBranch: main
+  gitCommitVersion: false
+  gitPushVersion: false
 
 stages:
   Build:
