@@ -20,7 +20,7 @@ steps:
   cnbBuild:
     # let it take default image
     containerImageTag: latest
-    containerRegistryUrl: {{ .Env.DOCKER_REGISTRY }}
+    containerRegistryUrl: "content-agent.common.repositories.cloud.sap"
     multipleImages:
       - containerImageName: incidents-jenkins-srv
         path: gen/srv
