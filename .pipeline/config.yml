@@ -14,7 +14,7 @@ stages:
 
 steps:
   npmExecuteScripts:
-    install: true
+    install: false
     npmCommand: install
     runScripts:
       - "production-build"
