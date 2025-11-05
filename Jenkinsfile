@@ -1,19 +1,13 @@
 // Jenkinsfile
-@Library('piper-lib-os@master') _
+@Library('piper-lib-os@v1.222.0') _
 
 piperPipeline {
 
-    // ──────────────────────────────────────────────────────────────
-    // General settings (general: …)
-    // ──────────────────────────────────────────────────────────────
     general {
         buildTool        = 'npm'
         productiveBranch = 'main'
     }
 
-    // ──────────────────────────────────────────────────────────────
-    // Stages
-    // ──────────────────────────────────────────────────────────────
     stages {
         Build {
             cnbBuild = true
