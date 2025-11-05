@@ -1,8 +1,6 @@
 general:
   buildTool: npm
   productiveBranch: main
-  gitCommitVersion: false
-  gitPushVersion: false
 
 stages:
   Build:
@@ -13,6 +11,7 @@ stages:
   #   deploymentName: 'incidents-jenkins'
   #   kubernetesDeploy: true
   #   namespace: 'i528716-pipeline'
+
 steps:
   npmExecuteScripts:
     install: true
@@ -20,7 +19,6 @@ steps:
       - "production-build"
       - "ui-build"
   cnbBuild:
-    # let it take default image
     containerImageTag: latest
     containerRegistryUrl: "content-agent.common.repositories.cloud.sap"
     multipleImages:
@@ -32,3 +30,6 @@ steps:
         path: app/html5-deployer
         buildpacks:
         - "deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0"
+
+  artifactPrepareVersion:
+    gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'   # Replace with your actual Jenkins credential ID
