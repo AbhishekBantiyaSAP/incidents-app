@@ -3,22 +3,23 @@ general:
   productiveBranch: main
 
 stages:
+  # 1️⃣ Build the project (generate gen/*, build UI, etc.)
   Build:
+    npmExecuteScripts: true
+
+  # 2️⃣ Containerize build outputs using Cloud Native Buildpacks
+  Containerize:
     cnbBuild: true
-  # Acceptance:
-  #   # kubeConfigFileCredentialsId set to secret file containing kubeconfig
-  #   deployTool: 'helm3'
-  #   deploymentName: 'incidents-jenkins'
-  #   kubernetesDeploy: true
-  #   namespace: 'i528716-pipeline'
 
 steps:
+  # --- Step 1: Build Phase ---
   npmExecuteScripts:
-    install: false
-    npmCommand: install
+    install: true                # Ensures dependencies are installed before build
     runScripts:
-      - "production-build"
-      - "ui-build"
+      - "production-build"       # runs: cds build --production → creates gen/srv, gen/db
+      - "ui-build"               # builds UI and packages html5 app
+
+  # --- Step 2: Container Build Phase ---
   cnbBuild:
     containerImageTag: latest
     containerRegistryUrl: "content-agent.common.repositories.cloud.sap"
@@ -30,7 +31,8 @@ steps:
       - containerImageName: incidents-jenkins-html5-deployer
         path: app/html5-deployer
         buildpacks:
-        - "deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0"
+          - "deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0"
 
+  # --- Step 3: Git tagging/version handling ---
   artifactPrepareVersion:
-    gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'   # Replace with your actual Jenkins credential ID
+    gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'
