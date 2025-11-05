@@ -19,7 +19,7 @@
     "start": "cds-serve",
     "jest": "npx jest --silent",
     "test": "chest",
-    "production-build": "npm rm -g @sap/cds && npm add -g @sap/cds-dk && cds build --production",
+    "production-build": "npm rm @sap/cds && npm add @sap/cds-dk && cds build --production",
     "ui-build": "mkdir -p app/html5-deployer/resources && npm i --prefix app/incidents && npm run build app/incidents && cp -f app/incidents/dist/incidents.zip app/html5-deployer/resources/incidents.zip"
   },
   "sapux": [
