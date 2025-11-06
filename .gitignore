@@ -4,7 +4,6 @@ _out
 connection.properties
 default-*.json
 .cdsrc-private.json
-gen/
 node_modules/
 target/
 dist/
