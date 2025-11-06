@@ -4,7 +4,7 @@ general:
 
 stages:
   Build:
-    cnbBuild: false //temp change to false to test kubernetesDeploy
+#    cnbBuild: false #temp change to false to test kubernetesDeploy
     npmExecuteLint: false
   Acceptance:
     helmExecute: true
@@ -18,7 +18,7 @@ steps:
   buildExecute:
     npmRunScripts: [ 'production-build', 'ui-build' ]
     npmInstall: false
-    cnbBuild: false
+#    cnbBuild: false
 #  cnbBuild:
 #    dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
 #    dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
