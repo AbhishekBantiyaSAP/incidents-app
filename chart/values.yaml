@@ -5,8 +5,8 @@ global:
   imagePullSecret:
     name: jfrog-cred
   image:
-    registry: content-agent.common.repositories.cloud.sap/i528716
-    tag: latest
+    registry: content-agent.common.repositories.cloud.sap/i528716/incidents
+    tag: v1
 srv:
   bindings:
     auth:
@@ -16,7 +16,7 @@ srv:
     destination:
       serviceInstanceName: destination
   image:
-    repository: incidents-srv-gha
+    repository: incidents-jenkins-srv
   resources:
     limits:
       ephemeral-storage: 1G
@@ -41,7 +41,7 @@ approuter:
     portal:
       serviceInstanceName: portal
   image:
-    repository: incidents-approuter
+    repository: incidents-jenkins-approuter
   resources:
     limits:
       ephemeral-storage: 1G
@@ -69,7 +69,7 @@ xsuaa:
     xsappname: incidents-gha-{{ .Release.Namespace }}
 hana-deployer:
   image:
-    repository: incidents-hana-deployer-gha
+    repository: incidents-jenkins-hana-deployer
   bindings:
     hana:
       serviceInstanceName: hana
@@ -97,7 +97,7 @@ html5-apps-repo-host:
   servicePlanName: app-host
 html5-apps-deployer:
   image:
-    repository: incidents-html5-deployer-gha
+    repository: incidents-jenkins-html5-deployer
   bindings:
     content-agent-service:
       serviceInstanceName: content-agent-service
