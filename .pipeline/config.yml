@@ -7,7 +7,6 @@ stages:
     cnbBuild: false //temp change to false to test kubernetesDeploy
     npmExecuteLint: false
   Acceptance:
-    npmExecuteScripts: true
     kubernetesDeploy: true
 
 steps:
@@ -18,7 +17,7 @@ steps:
   buildExecute:
     npmRunScripts: [ 'production-build', 'ui-build' ]
     npmInstall: false
-    cnbBuild: true
+    cnbBuild: false
   cnbBuild:
     dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
     dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
@@ -39,6 +38,11 @@ steps:
         path: app/router
         buildpacks:
           - 'docker.io/paketobuildpacks/nodejs'
+  helmExecute:
+    chartPath: './chart'
+    dependency: 'update'
+    templateStartDelimiter: "[["
+    templateEndDelimiter: "]]"
   kubernetesDeploy:
     chartPath: './gen/chart'
     kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
