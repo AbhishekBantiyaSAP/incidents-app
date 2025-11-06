@@ -7,7 +7,10 @@ stages:
     cnbBuild: true #temp change to false to test kubernetesDeploy
     npmExecuteLint: false
   Acceptance:
-    helmExecute: true
+    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
+    deployTool: 'helm3'
+    deploymentName: 'incidents-jenkins'
+    namespace: 'i528716-pipeline'
     kubernetesDeploy: true
 
 steps:
@@ -31,14 +34,14 @@ steps:
         - 'docker.io/paketobuildpacks/nodejs'
       - containerImageName: i528716/incidents/incidents-jenkins-hana-deployer
         path: gen/db
-      - containerImageName: i528716/incidents/incidents-jenkins-html5-deployer
-        path: app/html5-deployer
-        buildpacks:
-        - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
-      - containerImageName: i528716/incidents/incidents-jenkins-approuter
-        path: app/router
-        buildpacks:
-          - 'docker.io/paketobuildpacks/nodejs'
+#      - containerImageName: i528716/incidents/incidents-jenkins-html5-deployer
+#        path: app/html5-deployer
+#        buildpacks:
+#        - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
+#      - containerImageName: i528716/incidents/incidents-jenkins-approuter
+#        path: app/router
+#        buildpacks:
+#          - 'docker.io/paketobuildpacks/nodejs'
   helmExecute:
     chartPath: './chart'
     dependency: 'update'
@@ -46,18 +49,11 @@ steps:
     templateEndDelimiter: "]]"
   kubernetesDeploy:
     chartPath: './chart'
-    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
     namespace: 'i528716-pipeline'
-    deployTool: 'helm3'
     deploymentName: 'incidents-jenkins'
     additionalParameters:
       - "--set-file"
       - "xusuaa.jsonParameters=./xs-security.json"
-
-
-
-
-
 
   artifactPrepareVersion:
     gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'
