@@ -44,7 +44,7 @@ steps:
     templateStartDelimiter: "[["
     templateEndDelimiter: "]]"
   kubernetesDeploy:
-    chartPath: './gen/chart'
+    chartPath: './chart'
     kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
     namespace: 'i528716-pipeline'
     deployTool: 'helm3'
