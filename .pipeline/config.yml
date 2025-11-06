@@ -7,6 +7,7 @@ stages:
     cnbBuild: false //temp change to false to test kubernetesDeploy
     npmExecuteLint: false
   Acceptance:
+    helmExecute: true
     kubernetesDeploy: true
 
 steps:
@@ -18,26 +19,26 @@ steps:
     npmRunScripts: [ 'production-build', 'ui-build' ]
     npmInstall: false
     cnbBuild: false
-  cnbBuild:
-    dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
-    dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
-    containerImageTag: v1
-    containerRegistryUrl: 'content-agent.common.repositories.cloud.sap'
-    multipleImages:
-      - containerImageName: i528716/incidents/incidents-jenkins-srv
-        path: gen/srv
-        buildpacks:
-        - 'docker.io/paketobuildpacks/nodejs'
-      - containerImageName: i528716/incidents/incidents-jenkins-hana-deployer
-        path: gen/db
-      - containerImageName: i528716/incidents/incidents-jenkins-html5-deployer
-        path: app/html5-deployer
-        buildpacks:
-        - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
-      - containerImageName: i528716/incidents/incidents-jenkins-approuter
-        path: app/router
-        buildpacks:
-          - 'docker.io/paketobuildpacks/nodejs'
+#  cnbBuild:
+#    dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
+#    dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
+#    containerImageTag: v1
+#    containerRegistryUrl: 'content-agent.common.repositories.cloud.sap'
+#    multipleImages:
+#      - containerImageName: i528716/incidents/incidents-jenkins-srv
+#        path: gen/srv
+#        buildpacks:
+#        - 'docker.io/paketobuildpacks/nodejs'
+#      - containerImageName: i528716/incidents/incidents-jenkins-hana-deployer
+#        path: gen/db
+#      - containerImageName: i528716/incidents/incidents-jenkins-html5-deployer
+#        path: app/html5-deployer
+#        buildpacks:
+#        - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
+#      - containerImageName: i528716/incidents/incidents-jenkins-approuter
+#        path: app/router
+#        buildpacks:
+#          - 'docker.io/paketobuildpacks/nodejs'
   helmExecute:
     chartPath: './chart'
     dependency: 'update'
