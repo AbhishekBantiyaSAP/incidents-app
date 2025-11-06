@@ -27,3 +27,6 @@ steps:
         path: app/html5-deployer
         buildpacks:
           - "deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0"
+
+  artifactPrepareVersion:
+    gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'
