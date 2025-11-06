@@ -25,10 +25,10 @@ steps:
     npmInstall: false
     cnbBuild: true
     helmExecute: true
-  stashFilesBeforeBuild:
+  pipelineStashFilesBeforeBuild:
     stashIncludes:
       securityDescriptor: '**/xs-security.json'
-  stashFilesAfterBuild:
+  pipelineStashFilesAfterBuild:
     stashIncludes:
       buildDescriptor: '**/gen/**,'
   cnbBuild:
@@ -59,10 +59,11 @@ steps:
     kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
     deployTool: 'helm3'
     namespace: 'i528716-pipeline'
-    deploymentName: 'incidents-jenkins'
+    deploymentName: 'abhishek'
     additionalParameters:
       - "--set-file"
       - "xusuaa.jsonParameters=./xs-security.json"
+      - "--install"
 
   artifactPrepareVersion:
     gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'
