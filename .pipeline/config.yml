@@ -52,7 +52,7 @@ steps:
 #        buildpacks:
 #          - 'docker.io/paketobuildpacks/nodejs'
   helmExecute:
-    helmCommand: 'install'
+    helmCommand: 'upgrade'
     chartPath: './gen/chart'
     templateStartDelimiter: "[["
     templateEndDelimiter: "]]"
