@@ -1,6 +1,6 @@
 {
   "name": "@capire/incidents",
-  "version": "1.0.0",
+  "version": "1.0.0-20251106191058+753789165ab60df574e3185c1cb94a13b52f3173",
   "dependencies": {
     "@cap-js/hana": "^2",
     "@sap/cds": ">=9",
