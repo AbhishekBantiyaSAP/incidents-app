@@ -4,9 +4,10 @@ general:
 
 stages:
   Build:
-    cnbBuild: true
+    cnbBuild: false //temp change to false to test kubernetesDeploy
     npmExecuteLint: false
   Acceptance:
+    npmExecuteScripts: true
     kubernetesDeploy: true
 
 steps:
