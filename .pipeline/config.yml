@@ -44,12 +44,14 @@ steps:
 #        buildpacks:
 #          - 'docker.io/paketobuildpacks/nodejs'
   helmExecute:
-    chartPath: './gen/chart'
+    chartPath: './chart'
     dependency: 'update'
+    sourceRepositoryName: unified-runtime-helm
+    sourceRepositoryURL: https://common.repositories.cloud.sap/artifactory/unified-runtime-helm/
     templateStartDelimiter: "[["
     templateEndDelimiter: "]]"
   kubernetesDeploy:
-    chartPath: './gen/chart'
+    chartPath: './chart'
     namespace: 'i528716-pipeline'
     deploymentName: 'incidents-jenkins'
     additionalParameters:
