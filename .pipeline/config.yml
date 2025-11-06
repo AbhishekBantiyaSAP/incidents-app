@@ -20,7 +20,7 @@ steps:
     dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
     dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
     containerImageTag: v1
-    containerRegistryUrl: DOCKER_REGISTRY
+    containerRegistryUrl: env.DOCKER_REGISTRY
     multipleImages:
       - containerImageName: i528716/incidents/incidents-jenkins-srv
         path: gen/srv
