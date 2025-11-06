@@ -3,7 +3,7 @@
 global:
   domain: c-50942a7.stage.kyma.ondemand.com
   imagePullSecret:
-    name: jfrog-cred
+    name: jfrog-regcred
   image:
     registry: content-agent.common.repositories.cloud.sap/i528716/incidents
     tag: v1
