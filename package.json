@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "dependencies": {
     "@cap-js/hana": "^2",
-    "@sap/cds": ">=8",
+    "@sap/cds": ">=9",
     "@sap/xssec": "^4",
     "express": "^4"
   },
   "devDependencies": {
+    "@sap/cds-dk": "^9",
     "@cap-js/cds-test": "*",
     "@cap-js/audit-logging": ">=0.8.3",
     "@cap-js/change-tracking": "^1.0.6",
@@ -19,7 +20,7 @@
     "start": "cds-serve",
     "jest": "npx jest --silent",
     "test": "chest",
-    "production-build": "npm rm @sap/cds && npm add @sap/cds-dk && cds build --production",
+    "production-build": "npm install --include=dev && cds build --production",
     "ui-build": "mkdir -p app/html5-deployer/resources && npm install --prefix app/incidents && npm --prefix app/incidents run build && cp -f app/incidents/dist/incidents.zip app/html5-deployer/resources/incidents.zip"
   },
   "sapux": [

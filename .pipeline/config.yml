@@ -4,16 +4,18 @@ general:
 
 stages:
   Build:
-    npmExecuteScripts: true
-  Central Build:
     cnbBuild: true
+    npmExecuteLint: false
 
 steps:
   npmExecuteScripts:
-    install: true
     runScripts:
       - "production-build"
       - "ui-build"
+  buildExecute:
+    npmRunScripts: [ 'production-build', 'ui-build' ]
+    npmInstall: false
+    cnbBuild: true
   cnbBuild:
     containerImageTag: latest
     containerRegistryUrl: "content-agent.common.repositories.cloud.sap"
