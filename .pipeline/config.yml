@@ -17,6 +17,7 @@ steps:
     npmInstall: false
     cnbBuild: true
   cnbBuild:
+    dockerConfigJsonCredentialsId: "${env.dockerConfigJsonCredentialsId}"
     containerImageTag: latest
     containerRegistryUrl: "content-agent.common.repositories.cloud.sap"
     multipleImages:
