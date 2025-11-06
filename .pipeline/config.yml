@@ -6,13 +6,14 @@ stages:
   Build:
     cnbBuild: true #temp change to false to test kubernetesDeploy
     npmExecuteLint: false
-  Acceptance:
-    npmExecuteScripts: [ 'production-build', 'ui-build' ]
-    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
-    deployTool: 'helm3'
-    deploymentName: 'incidents-jenkins'
-    namespace: 'i528716-pipeline'
-    kubernetesDeploy: true
+    helmExecute: true
+#  Acceptance:
+#    npmExecuteScripts: [ 'production-build', 'ui-build' ]
+#    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
+#    deployTool: 'helm3'
+#    deploymentName: 'incidents-jenkins'
+#    namespace: 'i528716-pipeline'
+#    kubernetesDeploy: true
 
 steps:
   npmExecuteScripts:
@@ -23,6 +24,7 @@ steps:
     npmRunScripts: [ 'production-build', 'ui-build' ]
     npmInstall: false
     cnbBuild: true
+    helmExecute: true
   stashFilesBeforeBuild:
     stashIncludes:
       securityDescriptor: '**/xs-security.json'
@@ -50,12 +52,12 @@ steps:
 #        buildpacks:
 #          - 'docker.io/paketobuildpacks/nodejs'
   helmExecute:
-    chartPath: './chart'
-    dependency: 'update'
+    helmCommand: 'install'
+    chartPath: './gen/chart'
     templateStartDelimiter: "[["
     templateEndDelimiter: "]]"
-  kubernetesDeploy:
-    chartPath: './gen/chart'
+    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
+    deployTool: 'helm3'
     namespace: 'i528716-pipeline'
     deploymentName: 'incidents-jenkins'
     additionalParameters:
