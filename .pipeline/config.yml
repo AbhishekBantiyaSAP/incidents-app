@@ -46,8 +46,6 @@ steps:
   helmExecute:
     chartPath: './chart'
     dependency: 'update'
-    sourceRepositoryName: unified-runtime-helm
-    sourceRepositoryURL: https://common.repositories.cloud.sap/artifactory/unified-runtime-helm/
     templateStartDelimiter: "[["
     templateEndDelimiter: "]]"
   kubernetesDeploy:
