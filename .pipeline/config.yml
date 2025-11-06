@@ -14,7 +14,7 @@ steps:
       - "ui-build"
   buildExecute:
     cnbBuild: true
-  ccnbBuild:
+  cnbBuild:
     containerImageTag: latest
     containerRegistryUrl: "content-agent.common.repositories.cloud.sap"
     multipleImages:
