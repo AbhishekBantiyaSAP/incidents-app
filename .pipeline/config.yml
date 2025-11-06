@@ -44,12 +44,12 @@ steps:
 #        buildpacks:
 #          - 'docker.io/paketobuildpacks/nodejs'
   helmExecute:
-    chartPath: './chart'
+    chartPath: './gen/chart'
     dependency: 'update'
     templateStartDelimiter: "[["
     templateEndDelimiter: "]]"
   kubernetesDeploy:
-    chartPath: './chart'
+    chartPath: './gen/chart'
     namespace: 'i528716-pipeline'
     deploymentName: 'incidents-jenkins'
     additionalParameters:
