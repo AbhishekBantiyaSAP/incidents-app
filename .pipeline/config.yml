@@ -5,6 +5,7 @@ general:
 stages:
   Build:
     npmExecuteScripts: true
+  Central Build:
     cnbBuild: true
 
 steps:
