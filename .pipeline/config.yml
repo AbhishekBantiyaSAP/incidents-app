@@ -6,6 +6,8 @@ stages:
   Build:
     cnbBuild: true
     npmExecuteLint: false
+  Acceptance:
+    kubernetesDeploy: true
 
 steps:
   npmExecuteScripts:
@@ -36,6 +38,19 @@ steps:
         path: app/router
         buildpacks:
           - 'docker.io/paketobuildpacks/nodejs'
+  kubernetesDeploy:
+    chartPath: './gen/chart'
+    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
+    namespace: 'i528716-pipeline'
+    deployTool: 'helm3'
+    deploymentName: 'incidents-jenkins'
+    additionalParameters:
+      - "--set-file"
+      - "xusuaa.jsonParameters=./xs-security.json"
+
+
+
+
 
 
   artifactPrepareVersion:
