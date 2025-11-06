@@ -7,6 +7,7 @@ stages:
     cnbBuild: true #temp change to false to test kubernetesDeploy
     npmExecuteLint: false
   Acceptance:
+    npmExecuteScripts: [ 'production-build', 'ui-build' ]
     kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
     deployTool: 'helm3'
     deploymentName: 'incidents-jenkins'
@@ -48,7 +49,7 @@ steps:
     templateStartDelimiter: "[["
     templateEndDelimiter: "]]"
   kubernetesDeploy:
-    chartPath: './chart'
+    chartPath: './gen/chart'
     namespace: 'i528716-pipeline'
     deploymentName: 'incidents-jenkins'
     additionalParameters:
