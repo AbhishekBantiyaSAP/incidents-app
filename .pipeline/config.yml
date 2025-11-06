@@ -22,6 +22,7 @@ steps:
     npmRunScripts: [ 'production-build', 'ui-build' ]
     npmInstall: false
     cnbBuild: true
+    helmExecute: true
   cnbBuild:
     dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
     dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
@@ -32,8 +33,8 @@ steps:
         path: gen/srv
         buildpacks:
         - 'docker.io/paketobuildpacks/nodejs'
-      - containerImageName: i528716/incidents/incidents-jenkins-hana-deployer
-        path: gen/db
+#      - containerImageName: i528716/incidents/incidents-jenkins-hana-deployer
+#        path: gen/db
 #      - containerImageName: i528716/incidents/incidents-jenkins-html5-deployer
 #        path: app/html5-deployer
 #        buildpacks:
