@@ -77,7 +77,7 @@ steps:
     deployTool: 'helm3'
     additionalParameters:
         - "--set-file"
-        - "xusuaa.jsonParameters=./xs-security.json"
+        - "xsuaa.jsonParameters=xs-security.json"
 
   artifactPrepareVersion:
     gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'
