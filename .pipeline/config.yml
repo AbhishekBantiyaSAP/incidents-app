@@ -4,9 +4,9 @@ general:
 
 stages:
   Build:
-    cnbBuild: true #temp change to false to test kubernetesDeploy
+    cnbBuild: true
     npmExecuteLint: false
-    helmExecute: true
+#    helmExecute: true
 #  Acceptance:
 #    npmExecuteScripts: [ 'production-build', 'ui-build' ]
 #    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
@@ -14,6 +14,11 @@ stages:
 #    deploymentName: 'incidents-jenkins'
 #    namespace: 'i528716-pipeline'
 #    kubernetesDeploy: true
+  Acceptance:
+    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
+    deployTool: 'helm3'
+    deploymentName: 'incidents-jenkins'
+    namespace: 'i528716-pipeline'
 
 steps:
   npmExecuteScripts:
@@ -24,7 +29,7 @@ steps:
     npmRunScripts: [ 'production-build', 'ui-build' ]
     npmInstall: false
     cnbBuild: true
-    helmExecute: true
+#    helmExecute: true
   pipelineStashFilesBeforeBuild:
     stashIncludes:
       securityDescriptor: '**/xs-security.json'
@@ -51,19 +56,24 @@ steps:
 #        path: app/router
 #        buildpacks:
 #          - 'docker.io/paketobuildpacks/nodejs'
-  helmExecute:
-    helmCommand: 'upgrade'
-    chartPath: './gen/chart'
-    templateStartDelimiter: "[["
-    templateEndDelimiter: "]]"
-    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
-    deployTool: 'helm3'
+#  helmExecute:
+#    helmCommand: 'upgrade'
+#    chartPath: './gen/chart'
+#    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
+#    deployTool: 'helm3'
+#    namespace: 'i528716-pipeline'
+#    deploymentName: 'abhishek'
+#    additionalParameters:
+#      - "--set-file"
+#      - "xusuaa.jsonParameters=./xs-security.json"
+#      - "--install"
+  kubernetesDeploy:
+    deploymentName: 'cidcd-incidents'
     namespace: 'i528716-pipeline'
-    deploymentName: 'abhishek'
+    deployTool: 'helm3'
     additionalParameters:
-      - "--set-file"
-      - "xusuaa.jsonParameters=./xs-security.json"
-      - "--install"
+        - "--set-file"
+        - "xusuaa.jsonParameters=./xs-security.json"
 
   artifactPrepareVersion:
     gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'
