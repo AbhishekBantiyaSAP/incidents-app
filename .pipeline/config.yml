@@ -37,6 +37,7 @@ steps:
   pipelineStashFilesAfterBuild:
     stashIncludes:
       buildDescriptor: '**/gen/**,'
+      securityDescriptor: '**/xs-security.json'
   cnbBuild:
     dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
     dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
