@@ -19,6 +19,7 @@ stages:
     deployTool: 'helm3'
     deploymentName: 'incidents-jenkins'
     namespace: 'i528716-pipeline'
+    kubernetesDeploy: true
 
 steps:
   npmExecuteScripts:
