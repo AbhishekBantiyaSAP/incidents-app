@@ -69,6 +69,8 @@ steps:
 #      - "xusuaa.jsonParameters=./xs-security.json"
 #      - "--install"
   kubernetesDeploy:
+    chartPath: './gen/chart'
+
     deploymentName: 'cidcd-incidents'
     namespace: 'i528716-pipeline'
     deployTool: 'helm3'
